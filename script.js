@@ -169,6 +169,75 @@
     });
   }
 
+  /* 3c. Hotel Image Carousel */
+  var hotelCarousel = doc.getElementById('hotel-carousel');
+  var hotelPrevBtn = doc.getElementById('hotel-carousel-prev');
+  var hotelNextBtn = doc.getElementById('hotel-carousel-next');
+
+  if (hotelCarousel && hotelPrevBtn && hotelNextBtn) {
+    var hotelSlides = Array.prototype.slice.call(hotelCarousel.querySelectorAll('.hotel__slide'));
+    var hotelIndex = 0;
+    var hotelTimer = null;
+    var hotelMotionQuery = window.matchMedia
+      ? window.matchMedia('(prefers-reduced-motion: reduce)')
+      : null;
+    var hotelCanAuto = !(hotelMotionQuery && hotelMotionQuery.matches);
+
+    var showHotelSlide = function (nextIndex) {
+      if (!hotelSlides.length) return;
+      hotelIndex = (nextIndex + hotelSlides.length) % hotelSlides.length;
+      hotelSlides.forEach(function (slide, index) {
+        slide.classList.toggle('is-active', index === hotelIndex);
+      });
+    };
+
+    var stopHotelAuto = function () {
+      if (hotelTimer) {
+        window.clearInterval(hotelTimer);
+        hotelTimer = null;
+      }
+    };
+
+    var startHotelAuto = function () {
+      if (!hotelCanAuto) return;
+      stopHotelAuto();
+      hotelTimer = window.setInterval(function () {
+        showHotelSlide(hotelIndex + 1);
+      }, 5000);
+    };
+
+    hotelPrevBtn.addEventListener('click', function () {
+      showHotelSlide(hotelIndex - 1);
+      startHotelAuto();
+    });
+
+    hotelNextBtn.addEventListener('click', function () {
+      showHotelSlide(hotelIndex + 1);
+      startHotelAuto();
+    });
+
+    hotelCarousel.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        showHotelSlide(hotelIndex - 1);
+        startHotelAuto();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        showHotelSlide(hotelIndex + 1);
+        startHotelAuto();
+      }
+    });
+
+    hotelCarousel.addEventListener('mouseenter', stopHotelAuto);
+    hotelCarousel.addEventListener('mouseleave', startHotelAuto);
+    hotelCarousel.addEventListener('focusin', stopHotelAuto);
+    hotelCarousel.addEventListener('focusout', function (e) {
+      if (!hotelCarousel.contains(e.relatedTarget)) startHotelAuto();
+    });
+
+    startHotelAuto();
+  }
+
   /* 4. Verifizierter Kundenhinweis */
   var quoteSlides = Array.prototype.slice.call(doc.querySelectorAll('.quote-slide'));
   var quoteCounter = doc.getElementById('quote-counter');

@@ -209,7 +209,6 @@
         <div class="container">
           <div class="rooms__intro">
             <div class="rooms__intro-lead">
-              <p class="section-label">01 · Räume &amp; Kapazitäten</p>
               <h2 id="rooms-title">
                 Tagungsräume in Augsburg für Seminare, Konferenzen und Kongresse
               </h2>
@@ -306,7 +305,6 @@
         <div class="room-showcase" id="room-showcase">
           <div class="container">
             <div class="room-showcase__head">
-              <p class="section-label">Raumübersicht</p>
               <h3 class="room-showcase__heading">Bereiche für Ihr Format</h3>
               <p class="room-showcase__lead">
                 Drei Bereiche für Eindrücke, Flächen und Einsatzformate im westhouse.
@@ -510,17 +508,52 @@
       <!-- 02 HOTEL EINSMEHR -->
       <section class="section hotel" id="hotel" aria-labelledby="hotel-title">
         <div class="container hotel__grid">
-          <figure class="hotel__media">
-            <img
-              src="assets/images/hotel-zimmer.jpg"
-              alt="Gemütlich eingerichtetes Doppelzimmer im Hotel einsmehr im westhouse Augsburg."
-              width="1200"
-              height="800"
-            />
+          <figure class="hotel__media" id="hotel-carousel" aria-label="Bilder aus dem Hotel einsmehr">
+            <div class="hotel__slides">
+              <img
+                class="hotel__slide is-active"
+                src="assets/images/hotel-zimmer.jpg"
+                alt="Gemütlich eingerichtetes Doppelzimmer im Hotel einsmehr im westhouse Augsburg."
+                width="1200"
+                height="800"
+              />
+              <img
+                class="hotel__slide"
+                src="assets/images/hotel-lobby.webp"
+                alt="Loungebereich im Hotel einsmehr mit Fotowand und Sitzgelegenheiten im westhouse Augsburg."
+                width="768"
+                height="768"
+              />
+              <img
+                class="hotel__slide"
+                src="assets/images/hotel-zimmer-2.webp"
+                alt="Helles Doppelzimmer mit Tisch und Sitzgelegenheit im Hotel einsmehr im westhouse Augsburg."
+                width="768"
+                height="768"
+              />
+            </div>
+
+            <div class="hotel__controls" aria-label="Bilder wechseln">
+              <button
+                type="button"
+                class="hotel__btn"
+                id="hotel-carousel-prev"
+                aria-label="Vorheriges Hotelbild"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              </button>
+              <button
+                type="button"
+                class="hotel__btn"
+                id="hotel-carousel-next"
+                aria-label="Nächstes Hotelbild"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </button>
+            </div>
           </figure>
 
           <div class="hotel__content">
-            <p class="section-label">02 · Übernachtung</p>
             <h2 id="hotel-title">Tagung mit Übernachtung im Hotel einsmehr</h2>
             <p class="lead-copy">
               Das Hotel einsmehr befindet sich direkt im westhouse Augsburg und verfügt über 73
@@ -564,7 +597,6 @@
         <div class="container">
           <div class="section-head">
             <div>
-              <p class="section-label">03 · Pakete &amp; Service</p>
               <h2 id="packages-title">Tagungspakete mit Catering und Veranstaltungstechnik</h2>
             </div>
             <p class="section-head__aside">
@@ -649,7 +681,6 @@
             <div class="brochure-banner__scrim" aria-hidden="true"></div>
             <div class="brochure-banner__content">
               <div>
-                <p class="section-label section-label--light">Tagungsmappe</p>
                 <p class="brochure-banner__title">Alle Räume und Bestuhlungen im Überblick</p>
                 <p class="brochure-banner__text">
                   Flächen, Bestuhlungsvarianten und Details für Ihre Veranstaltungsplanung in der
@@ -671,23 +702,8 @@
       </section>
 
       <!-- 04 REFERENZEN -->
-      <section class="section references" aria-labelledby="references-title">
+      <section class="section references" aria-label="Kundenstimme aus dem westhouse">
         <div class="container">
-          <div class="references__head">
-            <div>
-              <p class="section-label">04 · Kunden, die uns vertrauen</p>
-              <h2 id="references-title">Bekannte Unternehmen planen im westhouse</h2>
-            </div>
-          </div>
-
-          <div class="verified-clients" aria-label="Verifizierte Kunden des westhouse">
-            <span>Dachser</span>
-            <span>Porsche Zentrum Augsburg</span>
-            <span>deuter</span>
-            <span>EDEKA</span>
-            <span>Witty</span>
-          </div>
-
           <figure class="quote-slide quote-slide--verified">
             <div class="quote-slide__mark" aria-hidden="true">
               <svg class="icon"><use href="#i-quote"></use></svg>
@@ -713,7 +729,6 @@
         <div class="container">
           <div class="arrival__grid">
             <div class="arrival__content">
-              <p class="section-label">05 · Anreise &amp; Parken</p>
               <h2 id="arrival-title">Anreise und Parken am westhouse Augsburg</h2>
               <p class="lead-copy">
                 Das westhouse liegt in Augsburg-Kriegshaber. Für die Anreise mit dem Auto steht eine
@@ -805,7 +820,6 @@
       <section class="section section--ice faq" id="faq" aria-labelledby="faq-title">
         <div class="container faq__grid">
           <div class="faq__intro">
-            <p class="section-label">06 · Häufige Fragen</p>
             <h2 id="faq-title">Häufige Fragen zu Tagungen im westhouse Augsburg</h2>
             <p class="lead-copy">
               Antworten zu Räumen, Kapazitäten, Übernachtung im Hotel einsmehr, Catering, Technik
@@ -1021,7 +1035,6 @@
       <section class="section section--dark inquiry" id="anfrage" aria-labelledby="inquiry-title">
         <div class="container inquiry__grid">
           <div class="inquiry__intro">
-            <p class="section-label section-label--light">07 · Tagung anfragen</p>
             <h2 id="inquiry-title">Unverbindliches Tagungsangebot anfragen</h2>
             <p class="inquiry__lead">
               Schicken Sie uns Ihren Wunschtermin, die voraussichtliche Teilnehmerzahl und das
