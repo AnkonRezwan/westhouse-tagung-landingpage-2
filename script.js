@@ -55,53 +55,7 @@
     });
   }
 
-  /* 3. Interactive Room Showcase Tabs */
-  var roomTabs = Array.prototype.slice.call(doc.querySelectorAll('.room-row[role="tab"]'));
-  var roomPanels = Array.prototype.slice.call(doc.querySelectorAll('.room-panel[role="tabpanel"]'));
-  var activateRoomById = null;
-
-  if (roomTabs.length && roomPanels.length) {
-    var activateRoom = function (targetTab, focusTab) {
-      var targetId = targetTab.getAttribute('aria-controls');
-      roomTabs.forEach(function (tab) {
-        var active = tab === targetTab;
-        tab.classList.toggle('is-active', active);
-        tab.setAttribute('aria-selected', String(active));
-        tab.tabIndex = active ? 0 : -1;
-      });
-      roomPanels.forEach(function (panel) {
-        var active = panel.id === targetId;
-        panel.classList.toggle('is-active', active);
-        panel.hidden = !active;
-      });
-      if (focusTab) targetTab.focus();
-    };
-
-    activateRoomById = function (roomKey) {
-      var matchingTab = roomTabs.find(function (tab) {
-        return tab.getAttribute('data-room') === roomKey;
-      });
-      if (matchingTab) activateRoom(matchingTab, false);
-    };
-
-    roomTabs.forEach(function (tab, index) {
-      tab.tabIndex = tab.classList.contains('is-active') ? 0 : -1;
-      tab.addEventListener('click', function () {
-        activateRoom(tab, false);
-      });
-      tab.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-          e.preventDefault();
-          activateRoom(roomTabs[(index + 1) % roomTabs.length], true);
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          activateRoom(roomTabs[(index - 1 + roomTabs.length) % roomTabs.length], true);
-        }
-      });
-    });
-  }
-
-  /* 3b. Hero Mini Carousel */
+  /* 3. Hero Mini Carousel */
   var carouselApi = window.WesthouseHeroCarousel;
   var heroCarousel = doc.getElementById('hero-carousel');
   var heroPrev = doc.getElementById('hero-carousel-prev');
@@ -134,11 +88,6 @@
       }
 
       heroLink.setAttribute('href', slide.href);
-      if (slide.roomTab) {
-        heroLink.setAttribute('data-room-target', slide.roomTab);
-      } else {
-        heroLink.removeAttribute('data-room-target');
-      }
     };
 
     renderHeroSlide(0);
@@ -160,28 +109,32 @@
         renderHeroSlide(carouselApi.stepSlide(heroIndex, 1, heroSlides.length));
       }
     });
-
-    heroLink.addEventListener('click', function () {
-      var targetRoom = heroLink.getAttribute('data-room-target');
-      if (targetRoom && activateRoomById) {
-        activateRoomById(targetRoom);
-      }
-    });
   }
 
   /* 3c. Hotel Image Carousel */
   var hotelCarousel = doc.getElementById('hotel-carousel');
   var hotelPrevBtn = doc.getElementById('hotel-carousel-prev');
   var hotelNextBtn = doc.getElementById('hotel-carousel-next');
+  var hotelProgressBar = doc.getElementById('hotel-carousel-progress');
 
   if (hotelCarousel && hotelPrevBtn && hotelNextBtn) {
     var hotelSlides = Array.prototype.slice.call(hotelCarousel.querySelectorAll('.hotel__slide'));
     var hotelIndex = 0;
-    var hotelTimer = null;
+    var HOTEL_DURATION_MS = 5000;
+    var hotelElapsedMs = 0;
+    var hotelLastTick = 0;
+    var hotelPaused = false;
+    var hotelRafId = null;
     var hotelMotionQuery = window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)')
       : null;
     var hotelCanAuto = !(hotelMotionQuery && hotelMotionQuery.matches);
+
+    var renderHotelProgress = function (ratio) {
+      if (!hotelProgressBar) return;
+      var clamped = Math.max(0, Math.min(1, ratio));
+      hotelProgressBar.style.transform = 'scaleX(' + clamped.toFixed(4) + ')';
+    };
 
     var showHotelSlide = function (nextIndex) {
       if (!hotelSlides.length) return;
@@ -191,59 +144,78 @@
       });
     };
 
-    var stopHotelAuto = function () {
-      if (hotelTimer) {
-        window.clearInterval(hotelTimer);
-        hotelTimer = null;
-      }
+    var resetHotelTimer = function () {
+      hotelElapsedMs = 0;
+      hotelLastTick = window.performance ? window.performance.now() : Date.now();
+      renderHotelProgress(0);
     };
 
-    var startHotelAuto = function () {
+    var tickHotelAuto = function (now) {
       if (!hotelCanAuto) return;
-      stopHotelAuto();
-      hotelTimer = window.setInterval(function () {
-        showHotelSlide(hotelIndex + 1);
-      }, 5000);
+      if (!hotelPaused && !doc.hidden) {
+        var delta = now - hotelLastTick;
+        hotelLastTick = now;
+        if (delta > 0 && delta < HOTEL_DURATION_MS) {
+          hotelElapsedMs += delta;
+        }
+        if (hotelElapsedMs >= HOTEL_DURATION_MS) {
+          hotelElapsedMs = 0;
+          showHotelSlide(hotelIndex + 1);
+        }
+        renderHotelProgress(hotelElapsedMs / HOTEL_DURATION_MS);
+      } else {
+        hotelLastTick = now;
+      }
+      hotelRafId = window.requestAnimationFrame(tickHotelAuto);
+    };
+
+    var pauseHotelAuto = function () {
+      hotelPaused = true;
+    };
+
+    var resumeHotelAuto = function () {
+      hotelPaused = false;
+      hotelLastTick = window.performance ? window.performance.now() : Date.now();
     };
 
     hotelPrevBtn.addEventListener('click', function () {
       showHotelSlide(hotelIndex - 1);
-      startHotelAuto();
+      resetHotelTimer();
     });
 
     hotelNextBtn.addEventListener('click', function () {
       showHotelSlide(hotelIndex + 1);
-      startHotelAuto();
+      resetHotelTimer();
     });
 
     hotelCarousel.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         showHotelSlide(hotelIndex - 1);
-        startHotelAuto();
+        resetHotelTimer();
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
         showHotelSlide(hotelIndex + 1);
-        startHotelAuto();
+        resetHotelTimer();
       }
     });
 
-    hotelCarousel.addEventListener('mouseenter', stopHotelAuto);
-    hotelCarousel.addEventListener('mouseleave', startHotelAuto);
-    hotelCarousel.addEventListener('focusin', stopHotelAuto);
+    hotelCarousel.addEventListener('mouseenter', pauseHotelAuto);
+    hotelCarousel.addEventListener('mouseleave', resumeHotelAuto);
+    hotelCarousel.addEventListener('focusin', pauseHotelAuto);
     hotelCarousel.addEventListener('focusout', function (e) {
-      if (!hotelCarousel.contains(e.relatedTarget)) startHotelAuto();
+      if (!hotelCarousel.contains(e.relatedTarget)) resumeHotelAuto();
     });
 
-    startHotelAuto();
+    doc.addEventListener('visibilitychange', function () {
+      hotelLastTick = window.performance ? window.performance.now() : Date.now();
+    });
+
+    if (hotelCanAuto && window.requestAnimationFrame) {
+      resetHotelTimer();
+      hotelRafId = window.requestAnimationFrame(tickHotelAuto);
+    }
   }
-
-  /* 4. Verifizierter Kundenhinweis */
-  var quoteSlides = Array.prototype.slice.call(doc.querySelectorAll('.quote-slide'));
-  var quoteCounter = doc.getElementById('quote-counter');
-  var quotePrev = doc.getElementById('quote-prev');
-  var quoteNext = doc.getElementById('quote-next');
-
 
   /* 5. Accessible FAQ Accordion */
   var faqButtons = Array.prototype.slice.call(doc.querySelectorAll('.faq-trigger'));
@@ -362,10 +334,65 @@
     }
   });
 
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var isSubmitting = false;
+
+  var renderStatus = function (options) {
+    if (!statusBox) return;
+    statusBox.textContent = '';
+    statusBox.classList.toggle('form-status--error', Boolean(options.isError));
+
+    var heading = doc.createElement('strong');
+    heading.textContent = options.heading;
+    statusBox.appendChild(heading);
+
+    if (options.detail) {
+      var detail = doc.createElement('span');
+      detail.textContent = ' ' + options.detail;
+      statusBox.appendChild(detail);
+    }
+
+    if (options.mail) {
+      var intro = doc.createElement('span');
+      intro.textContent = ' Direkter Versand über ';
+      var mailLink = doc.createElement('a');
+      mailLink.href = options.mail.href;
+      mailLink.textContent = recipient;
+
+      var actions = doc.createElement('div');
+      actions.className = 'form-status__actions';
+
+      var copyBtn = doc.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'form-status__copy';
+      copyBtn.textContent = 'Angaben kopieren';
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(options.mail.body).then(function () {
+            copyBtn.textContent = 'Kopiert';
+          });
+        }
+      });
+
+      actions.appendChild(copyBtn);
+      statusBox.appendChild(intro);
+      statusBox.appendChild(mailLink);
+      statusBox.appendChild(doc.createTextNode('.'));
+      statusBox.appendChild(actions);
+    }
+
+    statusBox.hidden = false;
+    statusBox.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'nearest'
+    });
+  };
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    var payload = readPayload();
+    var payload = logic.normalizeInquiryPayload(readPayload());
     var validation = logic.validateInquiry(payload);
 
     liveKeys.forEach(function (key) {
@@ -394,55 +421,248 @@
       return;
     }
 
-    var mail = logic.buildMailtoUrl(recipient, payload);
-    var leadResult = deduplicator.recordOnce(payload, function (eventObj) {
-      window.dataLayer.push(eventObj);
-    });
+    isSubmitting = true;
+    if (submitBtn) submitBtn.disabled = true;
 
-    if (statusBox) {
-      statusBox.textContent = '';
+    fetch('/api/inquiries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return { ok: res.ok, status: res.status, data: data };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.data || !result.data.ok) {
+          if (result.data && result.data.errors) {
+            liveKeys.forEach(function (key) {
+              var input = fields[key];
+              if (!input) return;
+              if (result.data.errors[key]) {
+                setError(input, result.data.errors[key]);
+              }
+            });
+          }
+          renderStatus({
+            isError: true,
+            heading: 'Anfrage konnte nicht gesendet werden.',
+            detail:
+              (result.data && result.data.message) ||
+              'Bitte prüfen Sie Ihre Angaben oder kontaktieren Sie uns telefonisch.',
+            mail: logic.buildMailtoUrl(recipient, payload)
+          });
+          return;
+        }
 
-      var heading = doc.createElement('strong');
-      heading.textContent = leadResult.recorded
-        ? 'Vielen Dank – Ihre Tagungsanfrage ist vorbereitet.'
-        : 'Ihre Angaben sind unverändert vorbereitet.';
+        var leadResult = deduplicator.recordOnce(payload, function (eventObj) {
+          window.dataLayer.push(eventObj);
+        });
+        var refText = result.data.referenceId ? ' (Referenz: ' + result.data.referenceId + ')' : '';
 
-      var intro = doc.createElement('span');
-      intro.textContent =
-        ' Bitte senden Sie die Zusammenfassung per E-Mail an ';
-
-      var mailLink = doc.createElement('a');
-      mailLink.href = mail.href;
-      mailLink.textContent = recipient;
-
-      var actions = doc.createElement('div');
-      actions.className = 'form-status__actions';
-
-      var copyBtn = doc.createElement('button');
-      copyBtn.type = 'button';
-      copyBtn.className = 'form-status__copy';
-      copyBtn.textContent = 'Angaben kopieren';
-      copyBtn.addEventListener('click', function () {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(mail.body).then(function () {
-            copyBtn.textContent = 'Kopiert';
+        if (result.data.deliveryStatus === 'forwarded') {
+          renderStatus({
+            isError: false,
+            heading: leadResult.recorded
+              ? 'Vielen Dank – Ihre Tagungsanfrage wurde übermittelt' + refText + '.'
+              : 'Ihre Tagungsanfrage liegt bereits vor' + refText + '.',
+            detail: 'Unser Veranstaltungsteam meldet sich kurzfristig mit einem passenden Angebot bei Ihnen.'
+          });
+        } else {
+          renderStatus({
+            isError: false,
+            heading: leadResult.recorded
+              ? 'Vielen Dank – Ihre Tagungsanfrage ist vorgemerkt' + refText + '.'
+              : 'Ihre Angaben sind unverändert vorgemerkt' + refText + '.',
+            detail:
+              'Die automatische CRM-Anbindung befindet sich noch in Abstimmung.',
+            mail: logic.buildMailtoUrl(recipient, payload)
           });
         }
+      })
+      .catch(function () {
+        renderStatus({
+          isError: true,
+          heading: 'Verbindungsfehler beim Senden.',
+          detail: 'Bitte versuchen Sie es erneut oder nutzen Sie den direkten E-Mail-Versand.',
+          mail: logic.buildMailtoUrl(recipient, payload)
+        });
+      })
+      .finally(function () {
+        isSubmitting = false;
+        if (submitBtn) submitBtn.disabled = false;
       });
-
-      actions.appendChild(copyBtn);
-
-      statusBox.appendChild(heading);
-      statusBox.appendChild(intro);
-      statusBox.appendChild(mailLink);
-      statusBox.appendChild(doc.createTextNode('.'));
-      statusBox.appendChild(actions);
-      statusBox.hidden = false;
-
-      statusBox.scrollIntoView({
-        behavior: reduceMotion ? 'auto' : 'smooth',
-        block: 'nearest'
-      });
-    }
   });
+
+  /* 8. Natural Scroll Reveal, Metric Count-Up & Subtle Hero Depth */
+  var motionApi = window.WesthouseMotion;
+  var revealEnabled = doc.documentElement.classList.contains('reveal-ready') && !reduceMotion;
+
+  var animateMetricValue = function (el) {
+    if (!motionApi || el.dataset.counted === 'true') return;
+    var parsed = motionApi.parseMetricText(el.textContent || '');
+    if (!parsed || parsed.target <= 0) return;
+    el.dataset.counted = 'true';
+
+    var duration = 850;
+    var start = window.performance ? window.performance.now() : Date.now();
+    var step = function (now) {
+      var progress = Math.min((now - start) / duration, 1);
+      el.textContent = motionApi.interpolateMetric(parsed, progress);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        el.textContent = motionApi.interpolateMetric(parsed, 1);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  if (revealEnabled) {
+    var singleRevealSelectors = [
+      '.rooms__intro-lead',
+      '.rooms__intro-copy',
+      '.rooms__subblock-copy',
+      '.metrics-band__head',
+      '.room-showcase__head',
+      '.capacity-split__copy',
+      '.table-wrap',
+      '.hotel__content',
+      '.packages .section-head',
+      '.references__card',
+      '.arrival__content',
+      '.faq__intro',
+      '.inquiry__intro',
+      '.inquiry__card'
+    ];
+
+    var imageRevealSelectors = [
+      '.rooms__media-aside',
+      '.rooms__subblock-media',
+      '.hotel__gallery',
+      '.brochure-banner',
+      '.arrival__card'
+    ];
+
+    var staggerGroupSelectors = [
+      '.stat-grid > .stat-tile',
+      '.room-cards > .room-card',
+      '.package-grid > .package-card',
+      '.clients-band__logos > li',
+      '.arrival__row',
+      '.faq-list > .faq-item'
+    ];
+
+    var tagged = [];
+    var markReveal = function (el, kind, delayMs) {
+      if (!el || el.hasAttribute('data-reveal')) return;
+      el.setAttribute('data-reveal', kind || 'up');
+      if (delayMs > 0) {
+        el.style.setProperty('--reveal-delay', delayMs + 'ms');
+      }
+      tagged.push(el);
+    };
+
+    singleRevealSelectors.forEach(function (sel) {
+      Array.prototype.forEach.call(doc.querySelectorAll(sel), function (el) {
+        markReveal(el, 'up', 0);
+      });
+    });
+
+    imageRevealSelectors.forEach(function (sel) {
+      Array.prototype.forEach.call(doc.querySelectorAll(sel), function (el) {
+        markReveal(el, 'image', 0);
+      });
+    });
+
+    staggerGroupSelectors.forEach(function (sel) {
+      Array.prototype.forEach.call(doc.querySelectorAll(sel), function (el, idx) {
+        var delay = motionApi ? motionApi.computeStaggerDelay(idx, 75, 300) : Math.min(idx * 75, 300);
+        markReveal(el, 'up', delay);
+      });
+    });
+
+    var metricsBand = doc.querySelector('.metrics-band');
+    var revealElement = function (el) {
+      if (!el || el.classList.contains('is-revealed')) return;
+      el.classList.add('is-revealed');
+      if (metricsBand && (el.closest('.metrics-band') === metricsBand || el === metricsBand)) {
+        Array.prototype.forEach.call(metricsBand.querySelectorAll('.stat-tile__value'), animateMetricValue);
+      }
+    };
+
+    var viewH = window.innerHeight || 900;
+    tagged.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top <= viewH * 0.96) {
+        revealElement(el);
+      }
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          revealElement(entry.target);
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin: '0px 0px -6% 0px',
+        threshold: 0.08
+      }
+    );
+
+    tagged.forEach(function (el) {
+      if (!el.classList.contains('is-revealed')) {
+        observer.observe(el);
+      }
+    });
+
+    var revealUpToViewport = function () {
+      var vh = window.innerHeight || 900;
+      tagged.forEach(function (el) {
+        if (el.classList.contains('is-revealed')) return;
+        var rect = el.getBoundingClientRect();
+        if (rect.top <= vh * 0.98) {
+          revealElement(el);
+          observer.unobserve(el);
+        }
+      });
+    };
+
+    window.addEventListener('hashchange', function () {
+      window.setTimeout(revealUpToViewport, 80);
+    });
+    window.addEventListener('scroll', revealUpToViewport, { passive: true });
+  }
+
+  /* Subtle hero background parallax on desktop fine-pointer devices */
+  var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var heroMediaImg = doc.querySelector('.hero__media img');
+  var heroFrame = doc.querySelector('.hero__frame');
+  if (!reduceMotion && finePointer && heroMediaImg && heroFrame) {
+    var parallaxTicking = false;
+    var updateHeroParallax = function () {
+      parallaxTicking = false;
+      var scrollY = window.scrollY || window.pageYOffset || 0;
+      var frameH = heroFrame.offsetHeight || 800;
+      if (scrollY <= frameH + 80) {
+        var offset = Math.min(36, Math.max(0, scrollY * 0.06));
+        heroMediaImg.style.setProperty('--hero-parallax', offset.toFixed(1) + 'px');
+      }
+    };
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!parallaxTicking) {
+          parallaxTicking = true;
+          window.requestAnimationFrame(updateHeroParallax);
+        }
+      },
+      { passive: true }
+    );
+  }
 })();
+

@@ -2,7 +2,7 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#181817" />
     <title>Tagungshotel Augsburg | Tagungen im westhouse</title>
     <meta
@@ -15,12 +15,17 @@
     <meta property="og:title" content="Tagungshotel Augsburg | Tagungen im westhouse" />
     <meta
       property="og:description"
-      content="Tagungen, Konferenzen und Seminare im westhouse Augsburg – mit Saal, Foyer, Catering und Hotel im Haus."
+      content="Planen Sie Ihre Tagung in Augsburg mit flexiblen Tagungsräumen, einem Saal für bis zu 480 Personen in Reihenbestuhlung, Catering und Hotel im Haus."
     />
     <link rel="icon" type="image/webp" href="public/assets/aistudio/Westhouse_Zeichen2_1C-600x624.png__1__d4ad1f66.webp" />
     <link rel="preload" href="assets/fonts/general-sans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="public/assets/aistudio/Westhouse_Aussen_4d115a01.jpg" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reveal-ready');
+      }
+    </script>
   </head>
   <body>
     <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -130,14 +135,13 @@
                 <a
                   class="hero-carousel__card"
                   id="hero-carousel-link"
-                  href="#raeume"
-                  data-room-target="saal"
+                  href="#room-showcase"
                 >
                   <figure class="hero-carousel__thumb">
                     <img
                       id="hero-carousel-img"
                       src="assets/images/saal-anna-maria.webp"
-                      alt="Der Saal Anna Maria im westhouse Augsburg mit Reihenbestuhlung"
+                      alt="Der Saal Anna Maria im westhouse Augsburg mit Reihenbestuhlung und Holzdecke"
                       width="160"
                       height="160"
                     />
@@ -150,14 +154,14 @@
                         id="hero-carousel-counter"
                         aria-live="polite"
                       >
-                        01 / 04
+                        01 / 03
                       </span>
                     </div>
                     <span class="hero-carousel__subtitle" id="hero-carousel-subtitle">
                       450 m² · bis 480 Personen
                     </span>
                     <span class="hero-carousel__meta" id="hero-carousel-meta">
-                      Reihe &amp; Parlamentarisch
+                      Parlamentarisch bis 198 Personen
                     </span>
                   </div>
                 </a>
@@ -171,12 +175,12 @@
                   die über Nacht bleiben, befindet sich das Hotel einsmehr direkt im Gebäude.
                 </p>
                 <div class="hero__actions">
-                  <a class="btn btn--ghost-dark" href="#raeume">
-                    Räume und Kapazitäten ansehen
-                  </a>
-                  <a class="btn btn--light" href="#anfrage">
+                  <a class="btn btn--primary" href="#anfrage">
                     Tagung anfragen
                     <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                  </a>
+                  <a class="btn btn--light" href="#raeume">
+                    Räume und Kapazitäten ansehen
                   </a>
                 </div>
               </div>
@@ -236,8 +240,8 @@
 
             <figure class="rooms__subblock-media">
               <img
-                src="assets/images/seminarraum-tisch.webp"
-                alt="Besprechungsraum mit Konferenztisch, Bildschirm und Fenstern im westhouse Augsburg"
+                src="public/assets/aistudio/Westhouse_2022_41.jpg_565d6076.webp"
+                alt="Tagungsraum mit Rednerpult, Reihenbestuhlung und großen Fenstern im westhouse Augsburg"
                 width="1920"
                 height="1280"
                 loading="lazy"
@@ -384,7 +388,7 @@
                     </div>
                     <div class="room-card__fact">
                       <dt>Kapazität</dt>
-                      <dd>bis 50 Personen</dd>
+                      <dd>bis 100 Personen</dd>
                     </div>
                     <div class="room-card__fact">
                       <dt>Bestuhlung</dt>
@@ -508,50 +512,56 @@
       <!-- 02 HOTEL EINSMEHR -->
       <section class="section hotel" id="hotel" aria-labelledby="hotel-title">
         <div class="container hotel__grid">
-          <figure class="hotel__media" id="hotel-carousel" aria-label="Bilder aus dem Hotel einsmehr">
-            <div class="hotel__slides">
-              <img
-                class="hotel__slide is-active"
-                src="assets/images/hotel-zimmer.jpg"
-                alt="Gemütlich eingerichtetes Doppelzimmer im Hotel einsmehr im westhouse Augsburg."
-                width="1200"
-                height="800"
-              />
-              <img
-                class="hotel__slide"
-                src="assets/images/hotel-lobby.webp"
-                alt="Loungebereich im Hotel einsmehr mit Fotowand und Sitzgelegenheiten im westhouse Augsburg."
-                width="768"
-                height="768"
-              />
-              <img
-                class="hotel__slide"
-                src="assets/images/hotel-zimmer-2.webp"
-                alt="Helles Doppelzimmer mit Tisch und Sitzgelegenheit im Hotel einsmehr im westhouse Augsburg."
-                width="768"
-                height="768"
-              />
-            </div>
+          <div class="hotel__gallery">
+            <figure class="hotel__media" id="hotel-carousel" aria-label="Bilder aus dem Hotel einsmehr">
+              <div class="hotel__slides">
+                <img
+                  class="hotel__slide is-active"
+                  src="assets/images/hotel-zimmer.jpg"
+                  alt="Gemütlich eingerichtetes Doppelzimmer im Hotel einsmehr im westhouse Augsburg."
+                  width="1200"
+                  height="800"
+                />
+                <img
+                  class="hotel__slide"
+                  src="assets/images/hotel-lobby.webp"
+                  alt="Loungebereich im Hotel einsmehr mit Fotowand und Sitzgelegenheiten im westhouse Augsburg."
+                  width="768"
+                  height="768"
+                />
+                <img
+                  class="hotel__slide"
+                  src="assets/images/hotel-zimmer-2.webp"
+                  alt="Helles Doppelzimmer mit Tisch und Sitzgelegenheit im Hotel einsmehr im westhouse Augsburg."
+                  width="768"
+                  height="768"
+                />
+              </div>
 
-            <div class="hotel__controls" aria-label="Bilder wechseln">
-              <button
-                type="button"
-                class="hotel__btn"
-                id="hotel-carousel-prev"
-                aria-label="Vorheriges Hotelbild"
-              >
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
-              </button>
-              <button
-                type="button"
-                class="hotel__btn"
-                id="hotel-carousel-next"
-                aria-label="Nächstes Hotelbild"
-              >
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </button>
+              <div class="hotel__controls" aria-label="Bilder wechseln">
+                <button
+                  type="button"
+                  class="hotel__btn"
+                  id="hotel-carousel-prev"
+                  aria-label="Vorheriges Hotelbild"
+                >
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+                </button>
+                <button
+                  type="button"
+                  class="hotel__btn"
+                  id="hotel-carousel-next"
+                  aria-label="Nächstes Hotelbild"
+                >
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </button>
+              </div>
+            </figure>
+
+            <div class="hotel__progress" aria-hidden="true">
+              <span class="hotel__progress-bar" id="hotel-carousel-progress"></span>
             </div>
-          </figure>
+          </div>
 
           <div class="hotel__content">
             <h2 id="hotel-title">Tagung mit Übernachtung im Hotel einsmehr</h2>
@@ -687,14 +697,9 @@
                   Tagungsmappe des westhouse.
                 </p>
               </div>
-              <a
-                class="btn btn--light"
-                href="https://westhouse-augsburg.de/tagungsmappe/"
-                target="_blank"
-                rel="noopener"
-              >
+              <a class="btn btn--light" href="#anfrage">
                 Tagungsmappe anfordern
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
             </div>
           </div>
@@ -702,25 +707,83 @@
       </section>
 
       <!-- 04 REFERENZEN -->
-      <section class="section references" aria-label="Kundenstimme aus dem westhouse">
+      <section class="section references" aria-label="Kunden und Stimmen aus dem westhouse">
         <div class="container">
-          <figure class="quote-slide quote-slide--verified">
-            <div class="quote-slide__mark" aria-hidden="true">
-              <svg class="icon"><use href="#i-quote"></use></svg>
+          <div class="references__card">
+            <figure class="quote-slide">
+              <div class="quote-slide__mark" aria-hidden="true">
+                <svg class="icon"><use href="#i-quote"></use></svg>
+              </div>
+              <div class="quote-slide__body">
+                <blockquote>
+                  „Das westhouse hat durch höchste Fachkompetenz und Freundlichkeit unseren
+                  Planungen alle Türen geöffnet, und uns wunderbar unterstützt nach dem Motto
+                  »Geht nicht – gibt’s nicht!«. Die Räume sind einladend, hell und freundlich, die
+                  Technik auf Spitzenniveau.“
+                </blockquote>
+                <figcaption>
+                  <strong>Martha Büllesbach</strong>
+                  <span>DGB Bayern</span>
+                </figcaption>
+              </div>
+            </figure>
+
+            <div class="references__clients" aria-label="Kunden, die uns vertrauen">
+              <p class="clients-band__title">Kunden, die uns vertrauen</p>
+              <ul class="clients-band__logos">
+                <li>
+                  <img
+                    src="assets/clients/dachser.png"
+                    alt="Dachser"
+                    width="100"
+                    height="100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="assets/clients/deuter.png"
+                    alt="Deuter"
+                    width="100"
+                    height="100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="assets/clients/edeka.png"
+                    alt="Edeka"
+                    width="100"
+                    height="100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="assets/clients/porsche-zentrum-augsburg.png"
+                    alt="Porsche Zentrum Augsburg"
+                    width="160"
+                    height="160"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="assets/clients/witty.png"
+                    alt="Witty"
+                    width="100"
+                    height="100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+              </ul>
             </div>
-            <div class="quote-slide__body">
-              <blockquote>
-                „Das westhouse hat durch höchste Fachkompetenz und Freundlichkeit unseren
-                Planungen alle Türen geöffnet, und uns wunderbar unterstützt nach dem Motto
-                »Geht nicht – gibt’s nicht!«. Die Räume sind einladend, hell und freundlich, die
-                Technik auf Spitzenniveau.“
-              </blockquote>
-              <figcaption>
-                <strong>Martha Büllesbach</strong>
-                <span>DGB Bayern</span>
-              </figcaption>
-            </div>
-          </figure>
+          </div>
         </div>
       </section>
 
@@ -767,7 +830,10 @@
                   </span>
                   <div>
                     <span class="arrival__label">Öffentlicher Nahverkehr</span>
-                    <p>Straßenbahnlinie 2 – Haltestelle in der Nähe des westhouse.</p>
+                    <p>
+                      Straßenbahnlinie 2 sowie Buslinien 500 und 501 – Haltestelle
+                      „Stenglinstraße“ (ca. 2 Gehminuten).
+                    </p>
                   </div>
                 </div>
 
@@ -778,8 +844,11 @@
                   <div>
                     <span class="arrival__label">Parken &amp; Barrierefreiheit</span>
                     <p>
-                      Tiefgarage direkt im Haus. Angaben zur Gruppenanreise oder zum barrierefreien
-                      Zugang ergänzen Sie bequem in Ihrer Tagungsanfrage.
+                      Über 40 Tiefgaragenstellplätze im Haus (bis 30 Min. kostenfrei, danach
+                      1,50 €/Std., Tagesmaximum 15 €). Behindertengerechte Parkplätze und
+                      E-Ladestationen befinden sich auf Ebene -1 und -2. Angaben zur
+                      Gruppenanreise oder zum barrierefreien Zugang ergänzen Sie gern in Ihrer
+                      Tagungsanfrage.
                     </p>
                   </div>
                 </div>
@@ -789,10 +858,12 @@
             <aside class="arrival__card">
               <figure class="arrival__photo">
                 <img
-                  src="assets/images/saal-buehne.jpg"
-                  alt="Veranstaltungsbereich mit Bühne und Technik im westhouse Augsburg."
-                  width="1200"
-                  height="800"
+                  src="assets/images/hero-exterior.webp"
+                  alt="Außenansicht des westhouse Augsburg in Augsburg-Kriegshaber."
+                  width="1920"
+                  height="1280"
+                  loading="lazy"
+                  decoding="async"
                 />
               </figure>
               <div class="arrival__card-body">
@@ -1283,6 +1354,7 @@
 
     <script src="lib/hero-carousel.js" defer></script>
     <script src="lib/inquiry-logic.js" defer></script>
+    <script src="lib/motion-helpers.js" defer></script>
     <script src="script.js" defer></script>
   </body>
 </html>
