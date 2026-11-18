@@ -169,36 +169,12 @@
     });
   }
 
-  /* 4. Testimonial Switcher */
+  /* 4. Verifizierter Kundenhinweis */
   var quoteSlides = Array.prototype.slice.call(doc.querySelectorAll('.quote-slide'));
   var quoteCounter = doc.getElementById('quote-counter');
   var quotePrev = doc.getElementById('quote-prev');
   var quoteNext = doc.getElementById('quote-next');
 
-  if (quoteSlides.length && quotePrev && quoteNext) {
-    var currentSlide = 0;
-
-    var renderSlide = function (nextIndex) {
-      currentSlide = (nextIndex + quoteSlides.length) % quoteSlides.length;
-      quoteSlides.forEach(function (slide, idx) {
-        var active = idx === currentSlide;
-        slide.classList.toggle('is-active', active);
-        slide.hidden = !active;
-      });
-      if (quoteCounter) {
-        quoteCounter.textContent =
-          '0' + (currentSlide + 1) + ' / 0' + quoteSlides.length;
-      }
-    };
-
-    quotePrev.addEventListener('click', function () {
-      renderSlide(currentSlide - 1);
-    });
-
-    quoteNext.addEventListener('click', function () {
-      renderSlide(currentSlide + 1);
-    });
-  }
 
   /* 5. Accessible FAQ Accordion */
   var faqButtons = Array.prototype.slice.call(doc.querySelectorAll('.faq-trigger'));

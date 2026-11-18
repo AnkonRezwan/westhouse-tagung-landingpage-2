@@ -215,48 +215,69 @@
               </h2>
             </div>
 
-            <div class="rooms__intro-copy">
-              <p class="lead-copy">
-                Wie viele Menschen nehmen teil und wie soll der Raum genutzt werden? Im westhouse
-                stehen acht Tagungsräume, ein Foyer und der Saal Anna Maria zur Verfügung. Je nach
-                Format planen Sie mit Reihenbestuhlung, U-Form, Block oder parlamentarischer
-                Bestuhlung.
-              </p>
+            <p class="lead-copy rooms__intro-copy">
+              Wie viele Menschen nehmen teil und wie soll der Raum genutzt werden? Im westhouse
+              stehen acht Tagungsräume, ein Foyer und der Saal Anna Maria zur Verfügung. Je nach
+              Format planen Sie mit Reihenbestuhlung, U-Form, Block oder parlamentarischer
+              Bestuhlung.
+            </p>
+          </div>
 
-              <div class="rooms__subblock">
-                <h3>Tagungsräume für Seminare und Workshops</h3>
-                <p>
-                  Für Workshops, Schulungen und Besprechungen stehen unterschiedlich große
-                  Tagungsräume bereit. Kombinierbare Räume bieten zusätzliche Möglichkeiten, wenn
-                  Sie Plenum und Gruppenarbeit verbinden möchten.
-                </p>
-                <div class="link-row">
-                  <a
-                    class="text-link"
-                    href="https://westhouse-augsburg.de/raeume/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Tagungsräume und Ausstattung ansehen
-                    <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-                  </a>
-                  <a
-                    class="text-link"
-                    href="https://westhouse-augsburg.de/seminarraeume/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Seminarräume für Schulungen und Workshops
-                    <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-                  </a>
-                </div>
+          <div class="rooms__media">
+            <figure class="rooms__media-aside">
+              <img
+                src="assets/images/workshopraum.webp"
+                alt="Workshopraum mit Tisch, farbigen Sitzhockern und Pinnwand im westhouse Augsburg"
+                width="800"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+
+            <figure class="rooms__subblock-media">
+              <img
+                src="assets/images/seminarraum-tisch.webp"
+                alt="Besprechungsraum mit Konferenztisch, Bildschirm und Fenstern im westhouse Augsburg"
+                width="1920"
+                height="1280"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+
+            <div class="rooms__subblock-copy">
+              <h3>Tagungsräume für Seminare und Workshops</h3>
+              <p>
+                Für Workshops, Schulungen und Besprechungen stehen unterschiedlich große
+                Tagungsräume bereit. Kombinierbare Räume bieten zusätzliche Möglichkeiten, wenn
+                Sie Plenum und Gruppenarbeit verbinden möchten.
+              </p>
+              <div class="link-row">
+                <a
+                  class="text-link"
+                  href="https://westhouse-augsburg.de/raeume/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Tagungsräume und Ausstattung ansehen
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+                </a>
+                <a
+                  class="text-link"
+                  href="https://westhouse-augsburg.de/seminarraeume/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Seminarräume für Schulungen und Workshops
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
+                </a>
               </div>
             </div>
           </div>
 
           <div class="metrics-band" aria-label="Kennzahlen westhouse Augsburg">
             <div class="metrics-band__head">
-              <p class="section-label section-label--light">Kennzahlen</p>
               <p class="metrics-band__title">Wo Raumgröße, Technik und Übernachtung unter einem Dach zusammenfinden</p>
             </div>
             <div class="stat-grid">
@@ -279,196 +300,147 @@
             </div>
           </div>
 
-          <!-- Interactive Room Showcase (Stellar / westhouse ice-blue inspired split) -->
-          <div class="room-showcase" id="room-showcase">
-            <div class="room-showcase__layout">
-              <div class="room-showcase__nav">
-                <div class="room-showcase__head">
-                  <p class="section-label">Raumübersicht</p>
-                  <h3 class="room-showcase__heading">Bereiche für Ihr Format</h3>
-                  <p class="room-showcase__lead">
-                    Wählen Sie einen Bereich für Eindrücke, Flächen und Einsatzformate.
-                  </p>
-                </div>
+        </div>
 
-                <div class="room-list" role="tablist" aria-label="Bereiche im westhouse">
-                  <button
-                    type="button"
-                    class="room-row is-active"
-                    role="tab"
-                    aria-selected="true"
-                    aria-controls="room-panel-saal"
-                    id="room-tab-saal"
-                    data-room="saal"
-                  >
-                    <span class="room-row__index">01</span>
-                    <span class="room-row__title">Saal Anna Maria</span>
-                    <span class="room-row__meta">450 m² · bis 480 Personen</span>
-                    <span class="room-row__arrow" aria-hidden="true">
-                      <svg class="icon"><use href="#i-arrow"></use></svg>
-                    </span>
-                  </button>
+        <!-- Raumübersicht als Karten -->
+        <div class="room-showcase" id="room-showcase">
+          <div class="container">
+            <div class="room-showcase__head">
+              <p class="section-label">Raumübersicht</p>
+              <h3 class="room-showcase__heading">Bereiche für Ihr Format</h3>
+              <p class="room-showcase__lead">
+                Drei Bereiche für Eindrücke, Flächen und Einsatzformate im westhouse.
+              </p>
+            </div>
 
-                  <button
-                    type="button"
-                    class="room-row"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="room-panel-seminar"
-                    id="room-tab-seminar"
-                    data-room="seminar"
-                  >
-                    <span class="room-row__index">02</span>
-                    <span class="room-row__title">Seminarräume</span>
-                    <span class="room-row__meta">8 Räume · kombinierbar</span>
-                    <span class="room-row__arrow" aria-hidden="true">
-                      <svg class="icon"><use href="#i-arrow"></use></svg>
-                    </span>
-                  </button>
-
-                  <button
-                    type="button"
-                    class="room-row"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="room-panel-foyer"
-                    id="room-tab-foyer"
-                    data-room="foyer"
-                  >
-                    <span class="room-row__index">03</span>
-                    <span class="room-row__title">Foyer &amp; Terrasse</span>
-                    <span class="room-row__meta">140 m² · bis 126 Personen</span>
-                    <span class="room-row__arrow" aria-hidden="true">
-                      <svg class="icon"><use href="#i-arrow"></use></svg>
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="room-panels">
-              <article
-                class="room-panel is-active"
-                id="room-panel-saal"
-                role="tabpanel"
-                aria-labelledby="room-tab-saal"
-              >
-                <figure class="room-panel__media">
+            <div class="room-cards">
+              <article class="room-card">
+                <figure class="room-card__media">
                   <img
                     src="assets/images/saal-anna-maria.webp"
                     alt="Der Saal Anna Maria im westhouse Augsburg mit Reihenbestuhlung und Holzdecke."
                     width="1900"
                     height="1267"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </figure>
-                <div class="room-panel__body">
-                  <p class="room-panel__meta">450 m² · bis 480 Personen (Reihe) · bis 198 (Parlamentarisch)</p>
-                  <p class="room-panel__title">Saal Anna Maria</p>
-                  <p>
-                    Der große Saal für Konferenzen, Fachtagungen und Kongresse – auf Wunsch direkt
-                    kombiniert mit dem angrenzenden Foyer für Empfang, Pausen und Ausstellung.
-                  </p>
-                  <div class="room-panel__actions">
+                <div class="room-card__body">
+                  <div class="room-card__top">
+                    <h4 class="room-card__title">Saal Anna Maria</h4>
                     <a
-                      class="text-link"
+                      class="room-card__arrow"
                       href="https://westhouse-augsburg.de/raeume/saal/"
                       target="_blank"
                       rel="noopener"
+                      aria-label="Saal Anna Maria ansehen"
                     >
-                      Bestuhlung im Saal Anna Maria ansehen
-                      <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-                    </a>
-                    <a class="text-link" href="#anfrage">
-                      Saal anfragen
                       <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
                     </a>
                   </div>
+                  <dl class="room-card__facts">
+                    <div class="room-card__fact">
+                      <dt>Fläche</dt>
+                      <dd>450 m²</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Kapazität</dt>
+                      <dd>bis 480 Personen</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Parlamentarisch</dt>
+                      <dd>bis 198 Personen</dd>
+                    </div>
+                  </dl>
                 </div>
               </article>
 
-              <article
-                class="room-panel"
-                id="room-panel-seminar"
-                role="tabpanel"
-                aria-labelledby="room-tab-seminar"
-                hidden
-              >
-                <figure class="room-panel__media">
+              <article class="room-card">
+                <figure class="room-card__media">
                   <img
                     src="assets/images/seminarraum.jpg"
                     alt="Heller Seminarraum im westhouse Augsburg mit U-Bestuhlung vor großen Fenstern."
                     width="1200"
                     height="800"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </figure>
-                <div class="room-panel__body">
-                  <p class="room-panel__meta">8 Tagungsräume · z. B. Seminarraum Johann (60 m²)</p>
-                  <p class="room-panel__title">Seminarräume</p>
-                  <p>
-                    Helle, flexibel bestuhlbare Räume für Workshops, Schulungen, Besprechungen und
-                    Arbeitsgruppen – einzeln nutzbar oder als Break-out-Räume zum Plenum
-                    kombinierbar.
-                  </p>
-                  <div class="room-panel__actions">
+                <div class="room-card__body">
+                  <div class="room-card__top">
+                    <h4 class="room-card__title">Seminarräume</h4>
                     <a
-                      class="text-link"
+                      class="room-card__arrow"
                       href="https://westhouse-augsburg.de/seminarraeume/"
                       target="_blank"
                       rel="noopener"
+                      aria-label="Seminarräume ansehen"
                     >
-                      Seminarräume im Detail ansehen
-                      <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-                    </a>
-                    <a class="text-link" href="#anfrage">
-                      Seminarraum anfragen
                       <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
                     </a>
                   </div>
+                  <dl class="room-card__facts">
+                    <div class="room-card__fact">
+                      <dt>Räume</dt>
+                      <dd>8, kombinierbar</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Kapazität</dt>
+                      <dd>bis 50 Personen</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Bestuhlung</dt>
+                      <dd>Reihe, U-Form, Block</dd>
+                    </div>
+                  </dl>
                 </div>
               </article>
 
-              <article
-                class="room-panel"
-                id="room-panel-foyer"
-                role="tabpanel"
-                aria-labelledby="room-tab-foyer"
-                hidden
-              >
-                <figure class="room-panel__media">
+              <article class="room-card">
+                <figure class="room-card__media">
                   <img
                     src="assets/images/terrasse.webp"
                     alt="Terrasse des westhouse Augsburg mit Sitzkissen für Pausen und Empfänge."
                     width="1200"
                     height="800"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </figure>
-                <div class="room-panel__body">
-                  <p class="room-panel__meta">140 m² Foyer · bis 126 Personen · direkter Terrassenzugang</p>
-                  <p class="room-panel__title">Foyer &amp; Terrasse</p>
-                  <p>
-                    Einladender Begegnungsraum für Akkreditierung, Kaffeepausen, Catering-Buffets
-                    und Gespräche zwischen den Programmpunkten.
-                  </p>
-                  <div class="room-panel__actions">
+                <div class="room-card__body">
+                  <div class="room-card__top">
+                    <h4 class="room-card__title">Foyer &amp; Terrasse</h4>
                     <a
-                      class="text-link"
+                      class="room-card__arrow"
                       href="https://westhouse-augsburg.de/raeume/"
                       target="_blank"
                       rel="noopener"
+                      aria-label="Foyer und Terrasse ansehen"
                     >
-                      Alle Räume &amp; Foyer ansehen
-                      <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg>
-                    </a>
-                    <a class="text-link" href="#anfrage">
-                      Veranstaltung anfragen
                       <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
                     </a>
                   </div>
+                  <dl class="room-card__facts">
+                    <div class="room-card__fact">
+                      <dt>Fläche</dt>
+                      <dd>140 m²</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Kapazität</dt>
+                      <dd>bis 126 Personen</dd>
+                    </div>
+                    <div class="room-card__fact">
+                      <dt>Zugang</dt>
+                      <dd>direkt zur Terrasse</dd>
+                    </div>
+                  </dl>
                 </div>
               </article>
-              </div>
             </div>
           </div>
+        </div>
 
+        <div class="container">
           <!-- Capacity Table Block -->
           <div class="capacity-split">
             <div class="capacity-split__copy">
@@ -602,28 +574,51 @@
           </div>
 
           <div class="package-grid">
-            <article class="package-card">
-              <span class="package-card__num">01</span>
+            <article class="package-card package-card--blue">
               <h3>Tagesseminar mit Raum, Getränken und Basistechnik</h3>
               <p>
                 Für ein eintägiges Seminar bietet das westhouse ein Tagungsbeispiel mit Raum,
                 Tagungsgetränken und Basistechnik. Teilen Sie uns mit, wie viele Personen
                 teilnehmen und welche Ausstattung Sie für Ihren Ablauf benötigen.
               </p>
+              <div class="package-card__art" aria-hidden="true">
+                <svg viewBox="0 0 360 220" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMax slice" focusable="false">
+                  <circle cx="180" cy="220" r="56" stroke-width="1.4" />
+                  <circle cx="180" cy="220" r="86" stroke-width="1.2" opacity="0.7" />
+                  <circle cx="180" cy="220" r="120" stroke-width="1.1" opacity="0.45" />
+                  <circle cx="180" cy="220" r="158" stroke-width="1" opacity="0.26" />
+                </svg>
+              </div>
+              <span class="package-card__num">01</span>
             </article>
 
-            <article class="package-card">
-              <span class="package-card__num">02</span>
+            <article class="package-card package-card--dark">
               <h3>Zweitägige Veranstaltung mit Hotel im Haus</h3>
               <p>
                 Für eine zweitägige Tagung können Sie Räume, Verpflegung und Übernachtungsbedarf
                 gemeinsam planen. Teilen Sie uns mit, ob Sie einen Raum für das Plenum, zusätzliche
                 Räume für Arbeitsgruppen oder Technik für Vorträge und Diskussionen benötigen.
               </p>
+              <div class="package-card__art" aria-hidden="true">
+                <svg viewBox="0 0 360 220" fill="none" stroke="currentColor" stroke-linejoin="round" preserveAspectRatio="xMidYMax slice" focusable="false">
+                  <path d="M40 220 V118 H112 V220" stroke-width="1.2" opacity="0.55" />
+                  <path d="M112 220 V74 H232 V220" stroke-width="1.4" />
+                  <path d="M232 220 V132 H320 V220" stroke-width="1.1" opacity="0.7" />
+                  <g stroke-width="1" opacity="0.5">
+                    <path d="M132 98 H146 M162 98 H176 M192 98 H206" />
+                    <path d="M132 120 H146 M162 120 H176 M192 120 H206" />
+                    <path d="M132 142 H146 M162 142 H176 M192 142 H206" />
+                    <path d="M132 164 H146 M162 164 H176 M192 164 H206" />
+                    <path d="M132 186 H146 M162 186 H176 M192 186 H206" />
+                    <path d="M60 140 H74 M90 140 H104 M60 166 H74 M90 166 H104" />
+                    <path d="M252 152 H266 M282 152 H296 M252 180 H266 M282 180 H296" />
+                  </g>
+                </svg>
+              </div>
+              <span class="package-card__num">02</span>
             </article>
 
-            <article class="package-card">
-              <span class="package-card__num">03</span>
+            <article class="package-card package-card--stone">
               <h3>Catering und Technik für Ihren Ablauf</h3>
               <p>
                 Meikes Schmeckerei, das Bistro im Haus, ist der reguläre Cateringpartner des
@@ -631,6 +626,16 @@
                 Beamer, Mikrofone, Lautsprecher und Bildschirme zur Verfügung. Welche Leistungen
                 enthalten oder zubuchbar sind, klären wir im Angebot.
               </p>
+              <div class="package-card__art" aria-hidden="true">
+                <svg viewBox="0 0 360 220" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMax slice" focusable="false">
+                  <circle cx="126" cy="148" r="58" stroke-width="1.4" />
+                  <circle cx="126" cy="148" r="42" stroke-width="1.1" opacity="0.6" />
+                  <path d="M224 122 A38 38 0 0 1 224 174" stroke-width="1.4" />
+                  <path d="M246 102 A56 56 0 0 1 246 194" stroke-width="1.2" opacity="0.72" />
+                  <path d="M268 82 A74 74 0 0 1 268 214" stroke-width="1.1" opacity="0.45" />
+                </svg>
+              </div>
+              <span class="package-card__num">03</span>
             </article>
           </div>
 
@@ -670,99 +675,36 @@
         <div class="container">
           <div class="references__head">
             <div>
-              <p class="section-label">04 · Stimmen aus Veranstaltungen</p>
-              <h2 id="references-title">Rückmeldungen von Veranstaltern im westhouse</h2>
-            </div>
-            <div class="quote-controls">
-              <span class="quote-counter" id="quote-counter" aria-live="polite">01 / 04</span>
-              <div class="quote-buttons">
-                <button
-                  type="button"
-                  class="icon-btn"
-                  id="quote-prev"
-                  aria-label="Vorherige Rückmeldung"
-                >
-                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
-                </button>
-                <button
-                  type="button"
-                  class="icon-btn"
-                  id="quote-next"
-                  aria-label="Nächste Rückmeldung"
-                >
-                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
-                </button>
-              </div>
+              <p class="section-label">04 · Kunden, die uns vertrauen</p>
+              <h2 id="references-title">Bekannte Unternehmen planen im westhouse</h2>
             </div>
           </div>
 
-          <div class="quote-stage" id="quote-stage">
-            <figure class="quote-slide is-active" data-index="0">
-              <div class="quote-slide__mark" aria-hidden="true">
-                <svg class="icon"><use href="#i-quote"></use></svg>
-              </div>
-              <div class="quote-slide__body">
-                <blockquote>
-                  „Das westhouse hat durch höchste Fachkompetenz und Freundlichkeit unseren
-                  Planungen alle Türen geöffnet, und uns wunderbar unterstützt nach dem Motto
-                  »Geht nicht – gibt’s nicht!«. Die Räume sind einladend, hell und freundlich, die
-                  Technik auf Spitzenniveau.“
-                </blockquote>
-                <figcaption>
-                  <strong>Martha Büllesbach</strong>
-                  <span>DGB Bayern</span>
-                </figcaption>
-              </div>
-            </figure>
-
-            <figure class="quote-slide" data-index="1" hidden>
-              <div class="quote-slide__mark" aria-hidden="true">
-                <svg class="icon"><use href="#i-quote"></use></svg>
-              </div>
-              <div class="quote-slide__body">
-                <blockquote>
-                  „Besonders gefallen hat uns, dass man ein ‚Rundum-sorglos-Paket‘ erhält –
-                  vielseitiger Tagungsbereich, AnsprechpartnerInnen immer vor Ort, schmackhaftes
-                  Catering, Parkgarage integriert, Hotel einsmehr direkt nebenan!“
-                </blockquote>
-                <figcaption>
-                  <strong>Franziska B.</strong>
-                  <span>Akademie Ottenstein</span>
-                </figcaption>
-              </div>
-            </figure>
-
-            <figure class="quote-slide" data-index="2" hidden>
-              <div class="quote-slide__mark" aria-hidden="true">
-                <svg class="icon"><use href="#i-quote"></use></svg>
-              </div>
-              <div class="quote-slide__body">
-                <blockquote>
-                  „Die Abstimmung verläuft unkompliziert, Rückmeldungen erfolgen zeitnah, sodass uns
-                  auch kurzfristige Aktionen gemeinsam gelingen.“
-                </blockquote>
-                <figcaption>
-                  <strong>Sabrina M.</strong>
-                  <span>HOERBIGER</span>
-                </figcaption>
-              </div>
-            </figure>
-
-            <figure class="quote-slide" data-index="3" hidden>
-              <div class="quote-slide__mark" aria-hidden="true">
-                <svg class="icon"><use href="#i-quote"></use></svg>
-              </div>
-              <div class="quote-slide__body">
-                <blockquote>
-                  „Persönlich, hilfsbereit und sehr flexibel!“
-                </blockquote>
-                <figcaption>
-                  <strong>Helen H.</strong>
-                  <span>msg nexinsure ag</span>
-                </figcaption>
-              </div>
-            </figure>
+          <div class="verified-clients" aria-label="Verifizierte Kunden des westhouse">
+            <span>Dachser</span>
+            <span>Porsche Zentrum Augsburg</span>
+            <span>deuter</span>
+            <span>EDEKA</span>
+            <span>Witty</span>
           </div>
+
+          <figure class="quote-slide quote-slide--verified">
+            <div class="quote-slide__mark" aria-hidden="true">
+              <svg class="icon"><use href="#i-quote"></use></svg>
+            </div>
+            <div class="quote-slide__body">
+              <blockquote>
+                „Das westhouse hat durch höchste Fachkompetenz und Freundlichkeit unseren
+                Planungen alle Türen geöffnet, und uns wunderbar unterstützt nach dem Motto
+                »Geht nicht – gibt’s nicht!«. Die Räume sind einladend, hell und freundlich, die
+                Technik auf Spitzenniveau.“
+              </blockquote>
+              <figcaption>
+                <strong>Martha Büllesbach</strong>
+                <span>DGB Bayern</span>
+              </figcaption>
+            </div>
+          </figure>
         </div>
       </section>
 
